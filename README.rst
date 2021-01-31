@@ -16,7 +16,7 @@ these examples to ensure the functionality.
 Access Modifiers
 ----------------
 
-To identify a variable as private:::
+To identify a variable as private::
 
    from pythonlangutil.access_modifiers import private_variable
     
@@ -31,7 +31,7 @@ To identify a variable as private:::
       def insider(self):
           self.id = "321"
           
-To identify a method as private:::
+To identify a method as private::
 
    from pythonlangutil.access_modifiers import private_function
     
@@ -49,7 +49,7 @@ To identify a method as private:::
 Creating Overloads
 ------------------
 
-To create overloads:::
+To create overloads::
 
    from pythonlangutil.overload import Overload, signature
 
@@ -60,19 +60,19 @@ To create overloads:::
            self.general_pref = "Dear %s"
        
        @Overload
-       @signature("str", "bool")
+       @signature(str, bool)
        def my_method(self, name, male):
            if male:
                return self.male_pref % name 
            return self.female_pref % name
    
        @my_method.overload
-       @signature("str")
+       @signature(str)
        def my_method(self, name):
            return self.general_pref % name
        
        @my_method.overload
-       @signature("int", "str")
+       @signature(int, str)
        def my_method(self, times, name):
            return "\n".join([self.general_pref % name for i in range(times)])
 
@@ -81,7 +81,7 @@ Using Singleton Model
 It prevents the instantiation of the class. The only instance of the class will be accessible through
 get_instance() method which will be added to class automatically.
 
-To use singleton:::
+To use singleton::
 
    from pythonlangutil.singleton import Singleton
 

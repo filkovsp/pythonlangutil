@@ -11,6 +11,7 @@ class Test(unittest.TestCase):
         self.assertEqual(hit.my_method("Joe"), "Dear Joe", "msg")
         self.assertEqual(hit.my_method("Joe", True), "Mr. Joe", "msg")
         self.assertEqual(hit.my_method(1, "Joe"), "Dear Joe", "msg")
+        self.assertEqual(hit.my_method(print, "Joe"), None)
         self.assertRaises(Exception, hit.my_method)
 
 if __name__ == "__main__":
