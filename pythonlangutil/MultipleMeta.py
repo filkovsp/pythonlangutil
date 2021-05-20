@@ -18,7 +18,7 @@
                     self.print(text)
         a = A()
         a.print(["1", "2", "3"]) # <--- this would fail in oringinal version, 
-                                 #      due to to having exact math of type `list` to `Iterable` 
+                                 #      due to `list` not being an exact match of `Iterable`
                                  #      but this is fixed below.
     ```
 """
@@ -63,21 +63,21 @@ class MultiMethod:
         '''
             Call a method based on type signature of the arguments
         '''
-        types = tuple(type(arg) for arg in args[1:])
+        passedTypes = tuple(type(arg) for arg in args[1:])
         
-        # meth = self._methods.get(types, None) # oringinal line, fail to match polymorphic types
+        # meth = self._methods.get(types, None) # oringinal line, fails to match polymorphic types
         
         meth = None
         
-        for idx, argTypes in enumerate(filter(lambda x: len(x) == len(types), self._methods.keys())):
-            if all(map(lambda x: issubclass(types[argTypes.index(x)], x), argTypes )):
-                meth = self._methods.get(argTypes, None)
+        for idx, registeredTypes in enumerate(filter(lambda x: len(x) == len(passedTypes), self._methods.keys())):
+            if all(map(lambda x: issubclass(passedTypes[registeredTypes.index(x)], x), registeredTypes )):
+                meth = self._methods.get(registeredTypes, None)
                 break
         
         if meth:
             return meth(*args)
         else:
-            raise TypeError('No matching method for types {}'.format(types))
+            raise TypeError('No matching method for types {}'.format(passedTypes))
         
     def __get__(self, instance, cls):
         '''
